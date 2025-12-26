@@ -1,0 +1,15 @@
+monolog:
+    channels:
+        - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
+
+    handlers:
+        main:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+            formatter: monolog.formatter.line
+            channels: ["!event", "!request", "!doctrine", "!security"] # filter out system request log
+        console:
+            type: console
+            process_psr_3_messages: false
+            channels: ["!event", "!request", "!doctrine", "!security"] # console filter out too

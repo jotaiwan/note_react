@@ -1,0 +1,37 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Notes App{% endblock %}</title>
+
+    {# Import CSS #}
+    {% block stylesheets %}
+        <link rel="icon" type="image/png" href="{{ asset('assets/img/work-note.png') }}">
+        
+        <!-- Bootstrap CSS (npm-managed) -->
+        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+        
+        <!-- Select2 CSS (npm-managed) -->
+        <link rel="stylesheet" href="/node_modules/select2/dist/css/select2.min.css" />
+        
+        <!-- FontAwesome CSS (npm-managed) -->
+        <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+        
+        <!-- Your custom CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/note/noteBuilder.css') }}">
+    {% endblock %}
+
+    {# Import JavaScript #}
+    {% block javascripts %}
+        <!-- jQuery (npm-managed) -->
+        <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+        
+        <!-- Bootstrap JS (npm-managed) -->
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Select2 JS (npm-managed) -->
+        <script src="/node_modules/select2/dist/js/select2.min.js"></script>
+        
+        <!-- Your custom JS -->
+        <script src="{{ asset('assets/note/noteLinkFunctions.js') }}"></script>
+    {% endblock %}
+</head>
