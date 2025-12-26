@@ -1,0 +1,28 @@
+{# templates/note/index.html.twig #}
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+    {% include 'note/head.html.twig' %}
+
+    <body>
+        <div class="p-2">
+            <div id="menu-container">
+                {% block menu %}
+                    {% include 'note/menu.html.twig' %}
+                {% endblock %}
+            </div>
+
+            {% block note_data %}
+                {% include 'note/note.html.twig' %}
+            {% endblock %}
+        </div>
+
+        {# Page-Specific Scripts #}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('noteLinkFunctions') }}  {# Make sure this is before noteBuilder.js #}
+            {{ encore_entry_script_tags('noteBuilder') }}  {# Only for this page #}
+            {{ encore_entry_script_tags('noteEditable') }}  {# Only for this page #}
+            {{ encore_entry_script_tags('stockUpdate') }}  {# Only for this page #}
+        {% endblock %}
+    </body>
+</html>

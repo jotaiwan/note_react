@@ -1,0 +1,30 @@
+{
+  "name": "note",
+  "version": "1.0.0",
+  "description": "My Node.js app with Twig",
+  "main": "app.js",
+  "scripts": {
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "bootstrap": "^5.3.8",
+    "css-loader": "^6.5.1",
+    "jquery": "^3.7.1",
+    "select2": "^4.1.0-rc.0",
+    "style-loader": "^3.3.0",
+    "twig": "^1.15.0"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^5.3.1",
+    "nodemon": "^3.1.11",
+    "sass": "^1.35.0",
+    "sass-loader": "^16.0.1",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

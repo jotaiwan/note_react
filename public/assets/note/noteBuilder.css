@@ -1,0 +1,651 @@
+table {
+  table-layout: fixed;
+}
+
+.table-hover tbody tr.hover-group {
+  background-color: #edebe8;
+}
+
+.date-cell:hover {
+  background-color: #f0f0f0;
+  /* or any color you like */
+  cursor: pointer;
+  /* optional: makes it clear it's hoverable */
+}
+
+.alert-header {
+  display: flex;
+  /* Makes the container a flexbox */
+  justify-content: space-between;
+  /* Pushes items to opposite ends */
+  align-items: center;
+  /* Vertically centers the items */
+  padding: 10px;
+  background-color: #e6f7e8;
+  /* A light green background */
+  border: 1px solid #d4edda;
+  border-radius: 5px;
+}
+
+.alert-title h2 {
+  margin: 0;
+  color: #155724;
+  /* A dark green for the title */
+}
+
+.alert-grid-container {
+  display: flex;
+  /* Makes the container a grid */
+  /* Defines two columns: one at 70% width, the other at 30% */
+  grid-template-columns: 5% 95%;
+  gap: 0.5rem;
+  /* Adds space between the columns */
+  background-color: transparent;
+  /* Changed to no background color */
+  padding: 1px;
+  border-radius: 8px;
+  font-weight: normal;
+  /* Ensures no bold text within the container */
+  color: #333;
+  /* A dark gray for the text color */
+  align-items: top;
+  /* vertically center if desired */
+}
+
+.close-btn {
+  font-size: 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #155724;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.fixed-date-col-truncate {
+  white-space: nowrap;
+  /* Prevent text from wrapping */
+  width: 180px;
+  /* Fixed width */
+  max-width: 180px;
+  overflow: hidden;
+  /* Optional: Hide overflow if too long */
+  text-overflow: ellipsis;
+  /* Optional: Show ellipsis if too long */
+}
+
+.fixed-date-col {
+  white-space: nowrap;
+  /* Don't wrap */
+  width: 200px;
+  /* Fixed width to fit full date + weekday */
+}
+
+.table-hover tbody tr {
+  padding: 12px 8px;
+  line-height: 1.5;
+  /*background-color: lightgray;*/
+}
+
+.table-hover td {
+  padding: 12px 8px;
+  /* Make cells taller */
+  vertical-align: top;
+  /* Keep text aligned at the top */
+}
+
+th {
+  cursor: pointer;
+}
+
+.select2-results__option i,
+.select2-selection__rendered i {
+  vertical-align: middle;
+  margin-right: 5px;
+  font-size: 16px;
+  line-height: 1;
+  /* Ensures icon aligns with text baseline */
+  display: inline-flex;
+  align-items: center;
+}
+
+.table-textarea {
+  width: 100%;
+  min-height: 1em;
+  box-sizing: border-box;
+  border: none;
+  resize: none;
+  /* disable manual resizing */
+  font-family: inherit;
+  font-size: inherit;
+  overflow: hidden;
+  /* hides scrollbar */
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  line-height: 1.4;
+}
+
+#preview {
+  border: 1px solid #ccc;
+  padding: 1em;
+  margin-top: 1em;
+}
+
+.code-block {
+  /*background: #f6f6f6;*/
+  background-color: #000000;
+  color: orange;
+  padding: 5px;
+  font-family: monospace;
+  display: block;
+  white-space: pre;
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+  border-radius: 5px;
+  /* 👈 makes text 90% of normal size */
+}
+
+.warning-note {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 10px;
+  margin-bottom: 1em;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.blockquote {
+  border-left: 8px solid #ccc;
+  padding: 0.5em 1em;
+  margin: 0.5em 0;
+  color: #555;
+  background: #f9f9f9;
+  font-size: 1em;
+  /* 👈 makes text 90% of normal size */
+}
+
+#menu {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  /* to prevent overlap transparency */
+  z-index: 1000;
+  /* higher than result, if needed */
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#menu-container {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+  border-bottom: 1px solid #ccc;
+}
+
+#menu,
+#addNewNoteForm {
+  padding: 10px;
+}
+
+#result {
+  padding: 20px;
+}
+
+/* Make the dropdown taller / scrollable */
+.emoji-grid .select2-results__options {
+  max-height: 300px;
+  /* increase this to show more emojis at once */
+  overflow-y: auto;
+}
+
+/* Optional: make emojis display in a grid */
+.emoji-grid .select2-results__option {
+  display: inline-block;
+  width: 30px;
+  /* space between emojis */
+  text-align: center;
+  padding: 4px 0;
+}
+
+.small-badge {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  /* remove extra padding */
+  font-size: 12px;
+  /* adjust icon/text size */
+  display: flex;
+  /* center content */
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  /* optional: make it circular */
+}
+
+.status-dropdown .select2-results__options {
+  max-height: none !important;
+  /* allow full height */
+}
+
+.table-textarea {
+  width: 100%;
+  min-height: 100px;
+  /* bigger editing area */
+  padding: 8px 10px;
+  font-size: 14px;
+  font-family: monospace;
+  /* or inherit from table */
+  line-height: 1.5;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  /* allow resize up/down */
+  box-sizing: border-box;
+  background: #fafafa;
+  transition: all 0.2s ease-in-out;
+}
+
+.table-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+.red-star {
+  color: red;
+  font-size: 30px;
+  /* adjust size as needed */
+  line-height: 1;
+  /* remove extra vertical space */
+  display: inline-block;
+  /* allow vertical adjustments */
+  position: relative;
+  top: -10px;
+  /* nudge star closer to top */
+}
+
+.red-star-small {
+  color: red;
+  font-size: 18px;
+  /* optional */
+}
+
+/* Open Bootstrap dropdown on hover */
+.dropdown.kebab:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown.kebab .dropdown-toggle::after {
+  /* hide caret triangle */
+  display: none;
+}
+
+.dropdown-menu.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* Optional: keep menu tight to the icon */
+.dropdown-menu {
+  display: block;
+  /* override Bootstrap default so JS controls visibility */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  margin-top: 0;
+  padding: 1rem;
+  min-width: 600px;
+  max-width: 1000px;
+}
+
+.dropdown-menu .btn-dotted {
+  display: block;
+  /* ensures it takes full row */
+  width: 100%;
+  /* optional, match dropdown width */
+  padding: .375rem .75rem;
+  /* same as dropdown-item */
+  cursor: pointer;
+  text-align: left;
+  /* consistent with dropdown items */
+}
+
+.popover {
+  font-size: 16px;
+  /* bigger overall */
+}
+
+.popover .popover-body {
+  padding: 1.5rem;
+  font-size: 18px;
+  /* bigger text inside */
+}
+
+.popover .popover-header {
+  font-size: 20px;
+  /* if you use a title */
+}
+
+.custom-popover-body {
+  padding: 0.25rem;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+}
+
+.custom-popover-body a {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+
+.btn-dotted {
+  border: 1px dotted #000;
+  /* black dotted border */
+  background-color: transparent;
+  /* optional */
+  color: #000;
+  /* text color */
+  padding: 0.375rem 0.75rem;
+  /* optional, like Bootstrap buttons */
+  border-radius: 0.25rem;
+  /* optional */
+}
+
+
+.emoji-round-red-x {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: red;
+  color: white;
+  text-align: center;
+  line-height: 1.25em;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 20px;
+  vertical-align: middle;
+  font-family: sans-serif;
+  transform: translateY(-0.2em);
+  /* nudge up slightly to align like emoji */
+}
+
+.clickable {
+  cursor: pointer;
+  /* Changes the mouse pointer to a hand when hovering */
+}
+
+.clickable:hover {
+  color: blue;
+  /* Optional: change the color on hover */
+}
+
+.session-delete-small {
+  position: relative;
+  top: -1px;
+  display: inline-flex;
+  /* Centers the ✗ nicely */
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  /* Circle size */
+  height: 15px;
+  border-radius: 50%;
+  /* Makes it round */
+  background-color: #f44336;
+  /* Red background */
+  color: white;
+  /* White ✗ */
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  /* Optional: hand cursor */
+  line-height: 1;
+  /* Keeps it vertically centered */
+  vertical-align: middle;
+}
+
+.session-delete-small:hover {
+  background-color: #d32f2f;
+  /* Darker red on hover */
+}
+
+.rounded-char {
+  display: inline-block;
+  /* Make the span behave like a box */
+  padding: 4px 8px;
+  /* Add some space around the character */
+  border-radius: 10px;
+  /* Rounded corners */
+  background-color: #b1dfbb;
+  /* Optional: background color */
+  color: #000;
+  /* Text color */
+  font-weight: bold;
+  /* Optional: bold character */
+  font-family: sans-serif;
+  /* Optional: nicer font */
+  text-align: center;
+  /* Center the character */
+}
+
+
+
+/* Style for the text that you want to hover over */
+.hover-shortcut-text {
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  color: #007BFF;
+  cursor: pointer;
+}
+
+
+/* Hide tooltip by default */
+
+/* Tooltip (popup list) */
+.hover-shortcut-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  display: block;
+  /* Display the tooltip element but make it invisible */
+  position: absolute;
+  top: 100%;
+  /* Position below the button */
+  left: 0;
+  /* Align to the left of the button */
+  transform: translateX(-50%);
+  /* Center the tooltip horizontally relative to the button */
+  background-color: #ebdb9d;
+  color: #000;
+  text-align: left;
+  border-radius: 5px;
+  padding: 10px;
+  list-style-type: none;
+  margin-top: 5px;
+  transition: opacity 0.3s, visibility 0.3s;
+  white-space: nowrap;
+}
+
+/* Show the tooltip when hovering over the button */
+.hover-shortcut-text:hover .hover-shortcut-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Style for the list inside the tooltip */
+.hover-shortcut-tooltip ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* List item style */
+.hover-shortcut-tooltip ul li {
+  padding: 5px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+/* List item hover effect */
+.hover-shortcut-tooltip ul li:hover {
+  background-color: #ffc400;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  /* ~14px if 1rem = 16px */
+}
+
+.copied-icon {
+  color: green;
+  /* Icon color */
+  font-size: 14px;
+  margin-left: 8px;
+
+  transition: opacity 0.3s ease;
+  /* Smooth transition for visibility */
+}
+
+li[data-copy]:hover .copied-icon {
+  opacity: 1;
+  /* Show icon when hovering over the li */
+}
+
+
+
+
+
+
+
+/*!* Wrapper *!*/
+/*[class^="hover-stock-"] {*/
+/*  position: relative;*/
+/*  display: inline-block;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*!* Tooltip base *!*/
+/*[class$="-tooltip"] {*/
+/*  position: absolute;*/
+/*  top: 120%;*/
+/*  left: 0;*/
+/*  background: white;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 5px;*/
+/*  padding: 10px;*/
+/*  box-shadow: 0 2px 6px rgba(0,0,0,0.2);*/
+/*  white-space: nowrap;*/
+/*  transition: opacity 0.3s ease, visibility 0.3s ease;*/
+/*  visibility: hidden;*/
+/*  opacity: 0;*/
+/*  z-index: 999;*/
+/*}*/
+
+/*!* Tooltip list styling *!*/
+/*[class$="-tooltip"] ul {*/
+/*  list-style: none;*/
+/*  padding: 0;*/
+/*  margin: 0;*/
+/*}*/
+
+/*[class$="-tooltip"] li {*/
+/*  padding: 5px;*/
+/*  cursor: pointer;*/
+/*  border-bottom: 1px solid #ddd;*/
+/*}*/
+
+/*[class$="-tooltip"] li:hover {*/
+/*  background-color: #f0f0f0;*/
+/*}*/
+
+/*!* Tick icon *!*/
+/*[class$="-tooltip"] li.active::before {*/
+/*  content: "✔ ";*/
+/*  color: green;*/
+/*  font-weight: bold;*/
+/*}*/
+
+
+
+
+
+/* stock source dropdown */
+.hover-stock-source {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-stock-source-tooltip {
+  display: none;
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.hover-stock-source-tooltip ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hover-stock-source-tooltip li {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.hover-stock-source-tooltip li:hover {
+  background: #f0f0f0;
+}
+
+
+/* stock highest timestamp */
+.hover-stock-highest {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-stock-highest-tooltip {
+  display: none;
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.hover-stock-highest-tooltip ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hover-stock-highest-tooltip li {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.hover-stock-highest-tooltip li:hover {
+  background: #f0f0f0;
+}
