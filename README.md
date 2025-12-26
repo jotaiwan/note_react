@@ -241,6 +241,48 @@ export NOTE_HOST=http://note.local
 export NOTE_DOCKER_PORT=8078
 ```
 
+---
+
+# Install **Node.js / npm** for managing frontend assets (JS/CSS) via **Webpack Encore** in a Symfony project
+
+Follow the steps below to set up the frontend environment on Ubuntu.
+
+```bash
+# 1. Update package list
+sudo apt update
+
+# 2. Install Node.js (LTS version) and npm
+sudo apt install -y nodejs npm
+
+# 3. Verify installation
+node -v
+npm -v
+
+# 4. Navigate to your project root
+cd /path/to/your/project
+
+# 5. Initialize package.json (if not already present)
+npm init -y
+
+# 6. Clean npm cache (optional but recommended)
+npm cache clean --force
+
+# 7. Install dependencies listed in package.json
+npm install
+
+# Optional: clean install (recommended after branch switch or pull)
+npm ci
+
+# 8. Run development build (compile JS/CSS)
+npm run dev
+
+# 9. Watch mode (rebuild automatically on changes)
+npm run watch
+
+# 10. Production build (minified/optimized)
+npm run build
+
+
 ### README.md
 
 Run the following commnad to convert README.md to README.html and view it in http://<your_host>/readme
