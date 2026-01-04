@@ -48,7 +48,7 @@ export function VaultNav() {
         try {
             await copyToClipboard(secretRef.current);
             window.open(
-                "https://vault.com/ui/vault/auth?with=token",
+                "https://vault.common.int.viator.com/ui/vault/auth?with=token",
                 "_blank",
                 "noopener,noreferrer"
             );
@@ -79,7 +79,7 @@ export function VaultNav() {
 
                     <VaultLink
                         label="Confluence"
-                        href="https://confluence.paget"
+                        href="https://confluence.viator.com/pages/viewpage.action?spaceKey=TO&title=Adding+secrets+into+Vault"
                     />
                 </div>
             </div>

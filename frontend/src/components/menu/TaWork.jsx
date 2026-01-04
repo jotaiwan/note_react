@@ -17,7 +17,7 @@ export const TaWork = () => {
             <div className="nav-links ms-3 d-flex align-items-center">
                 <a
                     className="nav-link py-1 text-white small font-weight-bold"
-                    href="https://work"
+                    href="https://www.myworkday.com/tripadvisor/d/home.htmld"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -29,7 +29,7 @@ export const TaWork = () => {
 
                 <a
                     className="nav-link py-1 text-white small font-weight-bold"
-                    href="https://AWS"
+                    href="https://us-east-1.signin.aws.amazon.com/platform/login?workflowStateHandle=ab9985cc-6293-47fc-beeb-a3036763a40f"
                     target="_blank"
                     rel="noopener noreferrer"
                 >

@@ -8,7 +8,7 @@ export const JiraWork = () => {
             <img
                 className="img-thumbnail me-3"
                 src={jiraIcon}  // Use imported image
-                alt="myJira Logo"
+                alt="Atlassian. Logo"
                 style={{ maxWidth: '55px', height: '35px' }}
             />
             {/* Image + Bug Section */}
@@ -24,7 +24,7 @@ export const JiraWork = () => {
                     <div className="link-group ms-2 d-flex align-items-center">
                         <a
                             className="nav-link nav-dot py-1 text-white small font-weight-bold"
-                            href="https://myJira.net/secure/CreateIssueDetails!init.jspa?pid=10089&issuetype=10040&reporter=712020%3A54173f2a-ea63-495a-8431-1cdae42a7b45&priority=10002&customfield_10390=12279&labels=vs-tools"
+                            href="https://viatorinc.atlassian..net/secure/CreateIssueDetails!init.jspa?pid=10089&issuetype=10040&reporter=712020%3A54173f2a-ea63-495a-8431-1cdae42a7b45&priority=10002&customfield_10390=12279&labels=vs-tools"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -35,7 +35,7 @@ export const JiraWork = () => {
 
                         <a
                             className="nav-link nav-dot py-1 text-white small font-weight-bold"
-                            href="https://myJira.net/secure/CreateIssueDetails!init.jspa?pid=10089&issuetype=10040&parent=APPSUP-7761&reporter=712020%3A54173f2a-ea63-495a-8431-1cdae42a7b45&priority=10002&customfield_10390=12279&labels=vs-tools"
+                            href="https://viatorinc.atlassian..net/secure/CreateIssueDetails!init.jspa?pid=10089&issuetype=10040&parent=APPSUP-7761&reporter=712020%3A54173f2a-ea63-495a-8431-1cdae42a7b45&priority=10002&customfield_10390=12279&labels=vs-tools"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -53,7 +53,7 @@ export const JiraWork = () => {
                 <div className="link-group ms-2 d-flex align-items-center">
                     <a
                         className="nav-link nav-dot py-1 text-white small font-weight-bold"
-                        href="https://myJira.net/secure/CreateIssueDetails!init.jspa?pid=10089&issuetype=10037&reporter=712020%3A54173f2a-ea63-495a-8431-1cdae42a7b45&priority=10002&customfield_10390=12279&labels=vs-tools"
+                        href="https://viatorinc.atlassian..net/secure/CreateIssueDetails!init.jspa?pid=10089&issuetype=10037&reporter=712020%3A54173f2a-ea63-495a-8431-1cdae42a7b45&priority=10002&customfield_10390=12279&labels=vs-tools"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -64,7 +64,7 @@ export const JiraWork = () => {
 
                     <a
                         className="nav-link nav-dot py-1 text-white small font-weight-bold"
-                        href="https://myJira.net/secure/CreateIssueDetails!init.jspa?pid=10089&issuetype=10037&parent=APPSUP-7761&reporter=712020%3A54173f2a-ea63-495a-8431-1cdae42a7b45&priority=10002&customfield_10390=12279&labels=vs-tools"
+                        href="https://viatorinc.atlassian..net/secure/CreateIssueDetails!init.jspa?pid=10089&issuetype=10037&parent=APPSUP-7761&reporter=712020%3A54173f2a-ea63-495a-8431-1cdae42a7b45&priority=10002&customfield_10390=12279&labels=vs-tools"
                         target="_blank"
                         rel="noopener noreferrer"
                     >

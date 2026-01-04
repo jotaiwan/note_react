@@ -24,17 +24,17 @@ export const JenkinsNav = () => {
                     />
 
                     {/* Links in a row */}
-                    <JenkinsLink label="Home" href="https://myJenkins/" />
+                    <JenkinsLink label="Home" href="https://jenkins.prod.viatorsystems.com/" />
                     <span className="separator mx-2">·</span>
-                    <JenkinsLink label="Dev" href="https://testJenkins/" />
+                    <JenkinsLink label="Dev" href="https://avrdevjenkins00n.ndmad2.tripadvisor.com/" />
                     <span className="separator mx-2">·</span>
-                    <JenkinsLink label="Self-Prod" href="https://myJenkins/job/Infrastructure/job/Vault/job/vault-self-service-prod/" />
+                    <JenkinsLink label="Self-Prod" href="https://jenkins.prod.viatorsystems.com/job/Infrastructure/job/Vault/job/vault-self-service-prod/" />
                     <span className="separator mx-2">·</span>
-                    <JenkinsLink label="Self-RC" href="https://myJenkins/job/Infrastructure/job/Vault/job/vault-self-service-rc/" />
+                    <JenkinsLink label="Self-RC" href="https://jenkins.prod.viatorsystems.com/job/Infrastructure/job/Vault/job/vault-self-service-rc/" />
                     <span className="separator mx-2">·</span>
-                    <JenkinsLink label="Restart-Prod" href="https://myJenkins/job/Apps/job/rolling-restart/" />
+                    <JenkinsLink label="Restart-Prod" href="https://jenkins.prod.viatorsystems.com/job/Apps/job/rolling-restart/" />
                     <span className="separator mx-2">·</span>
-                    <JenkinsLink label="Restart-Dev" href="https://testJenkins/user/scorreia/search/?q" />
+                    <JenkinsLink label="Restart-Dev" href="https://avrdevjenkins00n.ndmad2.tripadvisor.com/user/scorreia/search/?q" />
                 </div>
             </div>
         </li>
