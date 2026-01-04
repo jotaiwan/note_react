@@ -1,24 +1,24 @@
 <?php
 
 // src/Service/NoteService.php
-namespace Note\Service;
+namespace  NoteReact\Service;
 
 use Config\NoteConstants;
-use Note\Contract\ReadFileRepositoryInterface;
-use Note\Contract\NoteServiceInterface;
-use Note\Contract\NoteRequestStrategyInterface;
-use Note\Service\HtmlHeadService;
-use Note\Service\MenuService;
-use Note\Service\NoteBuilderService;
-use Note\Service\Base\NoteBase;
-use Note\Strategy\ReadRequestStrategy;
+use NoteReact\Contract\ReadFileRepositoryInterface;
+use NoteReact\Contract\NoteServiceInterface;
+use NoteReact\Contract\NoteRequestStrategyInterface;
+use NoteReact\Service\HtmlHeadService;
+use NoteReact\Service\MenuService;
+use NoteReact\Service\NoteBuilderService;
+use NoteReact\Service\Base\NoteBase;
+use NoteReact\Strategy\ReadRequestStrategy;
 
-use Note\DTO\NoteDTO;
+use NoteReact\DTO\NoteDTO;
 
-use Note\Util\EmojiUtil;
-use Note\CredentialReader\CredentialReader;
+use NoteReact\Util\EmojiUtil;
+use NoteReact\CredentialReader\CredentialReader;
 
-use Note\Util\LoggerTrait;
+use NoteReact\Util\LoggerTrait;
 
 class ReadFileService extends NoteBase implements NoteServiceInterface
 {
@@ -72,17 +72,18 @@ class ReadFileService extends NoteBase implements NoteServiceInterface
         $this->info("Fetched " . count($filteredNotes) . " notes (grouped by ticket) from the last $days days.");
 
         $tableRows = $this->noteBuilderService->buildTableRows($notes);
+        return $tableRows;
 
-        return [
-            'head_data' => $this->htmlHeadService->getHeadData(),
-            'menu_data' => $this->menuService->getMenu(),
-            'emojis_data' => EmojiUtil::getEmojis(),
-            'status_data' => MenuService::getNoteStatuses(),
-            'ta_sso_pwd' => CredentialReader::getTaSso(),
-            'copy_command_data' => MenuService::getCopyCommandList(),
-            'stock_data' => $this->menuService->stockInfo("TRIP"),
-            'note_data' => $tableRows,
-        ];
+        // return [
+        //     'head_data' => $this->htmlHeadService->getHeadData(),
+        //     'menu_data' => $this->menuService->getMenu(),
+        //     'emojis_data' => EmojiUtil::getEmojis(),
+        //     'status_data' => MenuService::getNoteStatuses(),
+        //     'ta_sso_pwd' => CredentialReader::getTaSso(),
+        //     'copy_command_data' => MenuService::getCopyCommandList(),
+        //     'stock_data' => ['stockInfo' => $this->menuService->stockInfo("TRIP")],
+        //     'note_data' => $tableRows,
+        // ];
     }
 
     public function getRowId(?NoteRequestStrategyInterface $data = null)

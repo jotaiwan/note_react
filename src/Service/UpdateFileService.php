@@ -1,17 +1,17 @@
 <?php
 
 // src/Service/NoteService.php
-namespace Note\Service;
+namespace  NoteReact\Service;
 
-use Note\Contract\NoteRequestStrategyInterface;
+use NoteReact\Contract\NoteRequestStrategyInterface;
 
-use Note\Contract\NoteServiceInterface;
-use Note\Contract\ReadFileRepositoryInterface;
-use Note\Contract\UpdateFileRepositoryInterface;
-use Note\Service\NoteBuilderService;;
+use NoteReact\Contract\NoteServiceInterface;
+use NoteReact\Contract\ReadFileRepositoryInterface;
+use NoteReact\Contract\UpdateFileRepositoryInterface;
+use NoteReact\Service\NoteBuilderService;;
 
-use Note\DTO\NoteDTO;
-use Note\Util\LoggerTrait;
+use NoteReact\DTO\NoteDTO;
+use NoteReact\Util\LoggerTrait;
 
 use Psr\Log\LoggerInterface;
 
@@ -35,7 +35,7 @@ class UpdateFileService implements NoteServiceInterface
         $this->setLogger($logger);
     }
 
-    public function execute(?NoteRequestStrategyInterface $data = null): mixed
+    public function execute(?NoteRequestStrategyInterface $data = null)
     {
         // Execute the request strategy and get the resulting array
         $request = $data->execute();

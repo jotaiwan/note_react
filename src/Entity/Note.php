@@ -1,6 +1,6 @@
 <?php
 
-namespace Note\Entity;
+namespace  NoteReact\Entity;
 
 /**
  * ② Entity → The final form of the data (e.g., DB/table)

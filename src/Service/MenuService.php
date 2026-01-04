@@ -1,15 +1,34 @@
 <?php
 // src/Service/MenuService.php
-namespace Note\Service;
+namespace  NoteReact\Service;
 
-use Note\Mapping\UrlMapping;
+use NoteReact\Mapping\UrlMapping;
 use Symfony\Component\Validator\Constraints\Json;
+use NoteReact\Service\StockService;
+use NoteReact\Util\EmojiUtil;
 
-use Note\Util\LoggerTrait;
+use NoteReact\Util\LoggerTrait;
 
 class MenuService
 {
     use LoggerTrait;
+
+    private StockService $stockService;
+
+    public function __construct(StockService $stockService)
+    {
+        $this->stockService = $stockService;
+    }
+
+    public function getAllEmojis()
+    {
+        return EmojiUtil::getEmojis(); // 從工具類取得 emoji array
+    }
+
+    public function buildAllProjectLinks()
+    {
+        return UrlMapping::allProjectLinks();
+    }
 
     public function getMenu(): array
     {
@@ -41,6 +60,21 @@ class MenuService
             ]
         ];
     }
+
+    public function getClipboard()
+    {
+        return [
+            ["text" => "Container adhoc-reports folder", "copy" => "cd /var/www/html/adhoc-reports", "order" => 1],
+            ["text" => "Container app-support folder", "copy" => "cd /var/www/html/app-support", "order" => 2],
+            ["text" => "Container competitive-analysis folder", "copy" => "cd /var/www/html/competitive-analysis", "order" => 3],
+            ["text" => "Container staff folder", "copy" => "cd /var/www/html/staff", "order" => 4],
+            ["text" => "Container stingray folder", "copy" => "cd /var/www/html/stingray", "order" => 5],
+            ["text" => "GDPR Assume Role", "copy" => "aws sts assume-role --role-arn arn =>aws =>iam => =>347924498361 =>role/vi-dev-gdpr-data-removal-backup-readwrite --role-session-name s3-list-test", "order" => 6],
+            ["text" => "Show folder and files", "copy" => "ls -lah --group-directories-first", "order" => 7],
+            ["text" => "Submodule update command", "copy" => "git submodule update --remote --recursive", "order" => 8],
+        ];
+    }
+
 
     public static function getProjectMenuAndLinks($project): string
     {
@@ -121,17 +155,22 @@ class MenuService
         );
     }
 
-    public static function stockInfo($source)
+    public function stockInfo(string $symbol): array
     {
-        $scheme = $_SERVER['REQUEST_SCHEME'] ?? 'http';
-        $host   = $_SERVER['HTTP_HOST'];
+        // Get stock info directly via StockService to avoid calling the app over HTTP
+        try {
+            // Prefer Alpaca Markets; StockService returns structured array
+            $stockData = $this->stockService->getAlpacaMarketsStockPrice(StockService::STOCK_ALPAC_MARKETS, $symbol, 'json');
 
-        $apiUrl = "$scheme://$host/api/stocks/$source/json";
+            if (empty($stockData)) {
+                // fall back to Finnhub
+                $stockData = $this->stockService->getFinnhubStockPrice(StockService::STOCK_FINNHUB, $symbol, 'json');
+            }
 
-        // Note: make sure the period much match your mock, otherwise it will break everything
-        $json = file_get_contents($apiUrl);
-        $data = json_decode($json, true);
-
-        return $data;
+            return $stockData ?? [];
+        } catch (\Exception $e) {
+            $this->error('Failed to fetch stock info: ' . $e->getMessage());
+            return [];
+        }
     }
 }

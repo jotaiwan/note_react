@@ -1,6 +1,6 @@
 <?php
 
-use Note\Kernel;
+use NoteReact\Kernel;
 
 require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
 

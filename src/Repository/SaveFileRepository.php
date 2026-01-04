@@ -1,15 +1,15 @@
 <?php
 
-namespace Note\Repository;
+namespace  NoteReact\Repository;
 
-use Note\Contract\ReadFileRepositoryInterface;
-use Note\Contract\SaveFileRepositoryInterface;
+use NoteReact\Contract\ReadFileRepositoryInterface;
+use NoteReact\Contract\SaveFileRepositoryInterface;
 use Config\NoteConstants;
-use Note\DTO\NoteDTO;
+use NoteReact\DTO\NoteDTO;
 
 use Psr\Log\LoggerInterface;
-use Note\Util\LoggerTrait;
-use Note\Util\DateTimeUtil;
+use NoteReact\Util\LoggerTrait;
+use NoteReact\Util\DateTimeUtil;
 
 class SaveFileRepository implements SaveFileRepositoryInterface
 {
@@ -41,12 +41,6 @@ class SaveFileRepository implements SaveFileRepositoryInterface
         $note = $request['note'];
         $status = $request['status'];
 
-        if (preg_match('/^\d+$/', $ticket)) {
-            ## if ticket is digit number only, add "APPSUP-" to the front
-            ## eg ticket is 7723, it will be APPSUP-7723
-            $ticket = "APPSUP-" . $ticket;
-        }
-
         // need to return json
         header('Content-Type: application/json; charset=utf-8');
 
@@ -64,18 +58,20 @@ class SaveFileRepository implements SaveFileRepositoryInterface
                     "something went wrong, rollback now!");
                 $this->rollbackWorkListFromBackup($backupFile);
                 $this->info("[ERROR] Failed to save new ticket note, rollback to previous state.");
+                return array("success" => false, "savedTicket" => $ticket, "reason" => "rollback");
             } else {
                 $this->info("New ticket `$ticket` is saved");
                 unlink($backupFile);
-                return array("savedTicket" => $ticket);
+                return array("success" => true, "savedTicket" => $ticket, "reason" => "");
             }
         }
-        return array("savedTicket" => "");
+        $this->error("The ticket is not saved: " . $ticket);
+        return array("success" => false, "savedTicket" => null, "reason" => "failed");
     }
 
     public function writeTicketToTextFile($ticket, $note = "", $status = "")
     {
-        $this->info("Saving the new note request: $ticket");
+        $this->info("Saving the new note request: `$ticket`");
 
         if (strtoupper($ticket) == NoteConstants::NOTE_ONLY) {
             $status = "NoteOnly";          // no matter what, it will be note_only
@@ -127,8 +123,9 @@ class SaveFileRepository implements SaveFileRepositoryInterface
     public function validateInsert($new)
     {
         $content = file($this->filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $this->info("Does insert success: " . (strpos($content[1], $new) !== false) ? "saved." : "not saved.");
-        return strpos($content[1], $new) !== false;
+        $found = (strpos($content[1], $new) !== false);
+        $this->info("Does insert success: " . $found ? "saved." : "not saved.");
+        return $found;
     }
 
     private function copyWorkListToFolder()
@@ -158,18 +155,14 @@ class SaveFileRepository implements SaveFileRepositoryInterface
     public function getBackupFullPathFile()
     {
         // Get the filename without extension
-        $this->info("111");
         $filename = pathinfo($this->filePath, PATHINFO_FILENAME);
 
-        $this->info("222");
         // Get the extension
         $extension = pathinfo($this->filePath, PATHINFO_EXTENSION);
 
-        $this->info("333");
         // Get current date
         $date = date('Ymd');
 
-        $this->info("444");
         $backupFolder = dirname($this->filePath) . '/backup';
         $this->info(">> $backupFolder");
         if (!is_dir($backupFolder)) {

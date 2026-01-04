@@ -1,10 +1,10 @@
 <?php
 
-namespace Note\Service;
+namespace  NoteReact\Service;
 
-use Note\DTO\NoteDTO;
+use NoteReact\DTO\NoteDTO;
 
-use Note\Util\LoggerTrait;
+use NoteReact\Util\LoggerTrait;
 
 class NoteBuilderService
 {
@@ -20,6 +20,7 @@ class NoteBuilderService
                 $date   = $this->getNoteDates($noteDTO->date);
                 $status = $noteDTO->status;
                 $note   = $this->formatNote($noteDTO->note); // returns HTML fragments for <div class="code-block"> etc.
+                // $note   = $noteDTO->note;
 
                 $result[$ticket][] = [
                     'ticket'     => $ticket,
@@ -37,9 +38,11 @@ class NoteBuilderService
 
     private function formatNote(string $raw): string
     {
-        $note = str_replace('\n', "\n", trim($raw));
+        // \xdebug_break();
+        // disable this line before react will handle \n in front end
+        // $note = str_replace('\n', "\n", trim($raw));
 
-        $note = $this->addSpecificWordBadge($note);
+        $note = $this->addSpecificWordBadge($raw);
         $note = $this->parseCustomBlocks($note);
         $note = $this->autoLink($note);
         // Note: do one time

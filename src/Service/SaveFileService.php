@@ -1,16 +1,16 @@
 <?php
 
 // src/Service/NoteService.php
-namespace Note\Service;
+namespace  NoteReact\Service;
 
 use Psr\Log\LoggerInterface;
-use Note\Util\LoggerTrait;
+use NoteReact\Util\LoggerTrait;
 
-use Note\Contract\NoteServiceInterface;
-use Note\Contract\ReadFileRepositoryInterface;
-use Note\Contract\SaveFileRepositoryInterface;
-use Note\Contract\NoteRequestStrategyInterface;
-use Note\Repository\ReadFileRepository;
+use NoteReact\Contract\NoteServiceInterface;
+use NoteReact\Contract\ReadFileRepositoryInterface;
+use NoteReact\Contract\SaveFileRepositoryInterface;
+use NoteReact\Contract\NoteRequestStrategyInterface;
+use NoteReact\Repository\ReadFileRepository;
 
 class SaveFileService implements NoteServiceInterface
 {
@@ -35,9 +35,8 @@ class SaveFileService implements NoteServiceInterface
             throw new \Exception("New save data are required for update operation");
         }
 
-        $isSaved = $this->saveFileRepository->saveNoteData($data);
-
-        return [];
+        // should return array("savedTicket" => $ticket) or array("savedTicket" => '');
+        return $this->saveFileRepository->saveNoteData($data);
     }
 
     public function getRowId(?NoteRequestStrategyInterface $data = null)

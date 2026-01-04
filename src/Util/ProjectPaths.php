@@ -1,6 +1,6 @@
 <?php
 
-namespace Note\Util;
+namespace  NoteReact\Util;
 
 class ProjectPaths
 {

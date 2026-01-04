@@ -1,7 +1,7 @@
 <?php
 // src/Controller/ReadmeController.php
 
-namespace Note\Controller;
+namespace  NoteReact\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

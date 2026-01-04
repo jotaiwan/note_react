@@ -1,6 +1,6 @@
 <?php
 
-namespace Note\Controller;
+namespace  NoteReact\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -8,19 +8,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Note\Service\HtmlHeadService;
-use Note\Service\MenuService;
-// use Note\Service\NoteService;
-use Note\Service\NoteTableBuilder;
-use Note\Api\NoteApi;
-use Note\Factory\NoteFactory;
+use NoteReact\Service\HtmlHeadService;
+use NoteReact\Service\MenuService;
+// use NoteReact\Service\NoteService;
+use NoteReact\Service\NoteTableBuilder;
+use NoteReact\Api\NoteApi;
+use NoteReact\Factory\NoteFactory;
 use Config\NoteConstants;
 
-use Note\Util\EmojiUtil;
-use Note\CredentialReader\CredentialReader;
+use NoteReact\Util\EmojiUtil;
+use NoteReact\CredentialReader\CredentialReader;
 
 use Psr\Log\LoggerInterface;  // 需要导入这个接口
-use Note\Util\LoggerTrait;
+use NoteReact\Util\LoggerTrait;
 
 class NoteController extends AbstractController
 {

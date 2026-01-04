@@ -1,6 +1,6 @@
 <?php
 
-namespace Note\CredentialReader;
+namespace  NoteReact\CredentialReader;
 
 use Config\NoteConstants;
 

@@ -1,8 +1,9 @@
 <?php
 
-namespace Note\Util;
+namespace  NoteReact\Util;
 
-class EmojiUtil {
+class EmojiUtil
+{
 
     public static function getEmojis()
     {

@@ -1,21 +1,19 @@
 <?php
 
 // src/Controller/Api/NoteApiController.php
-namespace Note\Controller\Api;
+namespace  NoteReact\Controller\Api;
 
+use NoteReact\Factory\NoteFactory;
+use NoteReact\Util\LoggerTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
-use Note\Factory\NoteFactory;
-
-use Psr\Log\LoggerInterface;  // 需要导入这个接口
-use Note\Util\LoggerTrait;
 
 class NoteApiController extends AbstractController
 {
-
     use LoggerTrait;
 
     private NoteFactory $noteFactory;
@@ -26,60 +24,128 @@ class NoteApiController extends AbstractController
         $this->setLogger($logger);
     }
 
-    /**
-     * Note Only: 
-     * ?int $rowId
-     * - Use ?int to indicate that id is an optional parameter. This means id can be null and is no longer a required int. 
-     *   If id is not provided, Symfony will set it to null.
-     */
-    #[Route("/api/note/{action}/{rowId}", name: "api_{action}_note_by_{id}", methods: ["GET", "POST"])]
-    #[Route("/api/note/{action}", name: "api_note_{action}", methods: ["GET", "POST"])]
-    public function apiAction(string $action, ?int $rowId, Request $request): JsonResponse
+    // -----------------------------
+    // List all notes
+    // -----------------------------
+    #[Route('/api/notes', methods: ['GET'], name: 'api_note_list')]
+    public function listNotes(): JsonResponse
     {
+        // ✅ 手动触发 Xdebug 断点
+        // \xdebug_break();
+        $data = [];
+        $noteService = $this->noteFactory->createNoteService('read');
+        $noteRequest = $this->noteFactory->createRequestStrategy('read', $data);
+
+        if (!$noteRequest) {
+            return $this->json(['error' => 'Invalid request'], 400);
+        }
+
+        $result = $noteService->execute($noteRequest);
+
+        return $this->json($result);
+    }
+
+    // -----------------------------
+    // Read one note by ID
+    // -----------------------------
+    #[Route('/api/notes/{id}', methods: ['GET'], name: 'api_note_read', requirements: ['id' => '\d+'])]
+    public function readNote(int $id): JsonResponse
+    {
+        // \xdebug_break();
+
+        $data = ['rowId' => $id];
+        $noteService = $this->noteFactory->createNoteService('read');
+        $noteRequest = $this->noteFactory->createRequestStrategy('read', $data);
+
+        if (!$noteRequest) {
+            return $this->json(['error' => 'Invalid request'], 400);
+        }
+
+        $result = $noteService->execute($noteRequest);
+
+        return $this->json($result ?: ['error' => 'Not found'], $result ? 200 : 404);
+    }
+
+    // -----------------------------
+    // Create a new note
+    // -----------------------------
+    #[Route('/api/notes', methods: ['POST'], name: 'api_note_create')]
+    public function createNote(Request $request): JsonResponse
+    {
+        \xdebug_break();
+        $data = json_decode($request->getContent(), true) ?? [];
+        $this->info("******************** Try to save new note: " . json_encode($data));
+
+        $noteService = $this->noteFactory->createNoteService('save');
+        $noteRequest = $this->noteFactory->createRequestStrategy('save', $data);
+
+        if (!$noteRequest) {
+            return $this->json(['error' => 'Invalid request'], 400);
+        }
+
+
         try {
-            if ($rowId !== null) {
-                $this->info("Request to `{$action}` the note by id `{$rowId}`: " . $request->getContent());
-            } else {
-                $this->info("Request to `{$action}` the note: " . $request->getContent());
-            }
-
-            // Use a Factory to create the corresponding operation’s NoteService. 
-            $noteService = $this->noteFactory->createNoteService($action);
-
-            // Data can be retrieved from a POST request, but from a GET request it returns null.
-            $data = $request->isMethod('POST') ? json_decode($request->getContent(), true) : [];
-            // add rowId into $data, it could be null
-            $data["rowId"] = $rowId;
-
-            // Special case: for 'read' action we treat the route parameter as 'days' (matches UI route semantics)
-            if ($action === 'read') {
-                $data['days'] = $rowId;
-            }
-
-            $this->info("Request action `{$action}` with type `" . gettype($data) . "`: " . json_encode($data));
-
-            $noteRequest = $this->noteFactory->createRequestStrategy($action, $data);
-
+            // 原来的保存逻辑
             $result = $noteService->execute($noteRequest);
-            if ($result === null) {
-                $statusCode = match ($action) {
-                    'read'   => 404,
-                    'update' => 404,
-                    default  => 400, // save / others
-                };
-
-                return new JsonResponse(
-                    ['error' => "Request `$action` failed"],
-                    $statusCode
-                );
+            $this->info(".................................. " . json_encode($result));
+            if ($result["success"]) {
+                return $this->json([
+                    "success" => true,
+                    "savedTicket" => $result["savedTicket"],
+                ]);
+            } else {
+                return $this->json([
+                    "success" => false,
+                    "savedTicket" => null,
+                ], 500); // Optional: return HTTP 500 if insert failed
             }
-
-            // response JSON format
-            return new JsonResponse($result);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return new JsonResponse([
                 'error' => $e->getMessage(),
-            ], 400);
+                'trace' => $e->getTraceAsString(),
+            ], 500);
         }
+    }
+
+    // -----------------------------
+    // Update existing note
+    // -----------------------------
+    #[Route('/api/notes/{id}', methods: ['PUT'], name: 'api_note_update', requirements: ['id' => '\d+'])]
+    public function updateNote(int $id, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true) ?? [];
+        $data['rowId'] = $id;
+
+        $noteService = $this->noteFactory->createNoteService('update');
+        $noteRequest = $this->noteFactory->createRequestStrategy('update', $data);
+
+        if (!$noteRequest) {
+            return $this->json(['error' => 'Invalid request'], 400);
+        }
+
+        $result = $noteService->execute($noteRequest);
+
+        return $this->json($result ?: ['error' => 'Update failed'], $result ? 200 : 400);
+    }
+
+
+    // -----------------------------
+    // List of Note Statuses
+    // -----------------------------
+    #[Route('/api/notes/statuses', methods: ['GET'], name: 'api_list_of_note_status')]
+    public function statusList(): JsonResponse
+    {
+        $this->info("Loading note statuses...");
+        return $this->json(array(
+            "All" => array("url" => "?statusOnly=", "icon" => "fa-list fa-fw", "color" => "blue", "text" => "All"),
+            "Epic" => array("url" => "?statusOnly=epic", "icon" => "fa-bolt fa-fw", "color" => "purple", "text" => "Epic"),
+            "Open" => array("url" => "?statusOnly=open", "icon" => "fa-hourglass-half fa-fw", "color" => "blue", "text" => "Open"),
+            "Processing" => array("url" => "?statusOnly=processing", "icon" => "fa-spinner fa-spin fa-fw", "color" => "darkcyan", "text" => "Processing"),
+            "Follow" => array("url" => "?statusOnly=follow", "icon" => "fa-eye fa-fw", "color" => "indigo", "text" => "Follow"),
+            "Resolved" => array("url" => "?statusOnly=resolved", "icon" => "fa-check-circle fa-fw", "color" => "green", "text" => "Resolved"),
+            "Unresolved" => array("url" => "?statusOnly=unresolved", "icon" => "fa-minus-circle fa-fw", "color" => "red", "text" => "Unresolved"),
+            "Meeting" => array("url" => "?statusOnly=meeting", "icon" => "fa-users fa-fw", "color" => "Salmon", "text" => "Meeting"),
+            "NoteOnly" => array("url" => "?statusOnly=noteonly", "icon" => "fa-sticky-note fa-fw", "color" => "grey", "text" => "NoteOnly")
+        ));
     }
 }
