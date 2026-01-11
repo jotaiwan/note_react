@@ -8,6 +8,7 @@ export default function NoteStatus() {
     const wrapperRef = useRef(null);
 
     useEffect(() => {
+        console.log("Status API is being called");
         statusData().then(data => {
             const list = Object.entries(data).map(([key, v]) => ({
                 key,

@@ -32,10 +32,10 @@ class StockController extends AbstractController
     #[Route('/api/stocks/{symbol}/{format}', name: 'stock_check', defaults: ['format' => 'json'], methods: ['GET'])]
     public function stockCheck(string $symbol, string $format, Request $request): Response
     {
-        $this->info("$$$$$$$$$$ Loading `$symbol` stock with `$format`...");
+        $this->info("[Stock] Loading `$symbol` stock with `$format`...");
         // Gather parameters
         $source = $request->query->get('source') ?? StockService::STOCK_ALPAC_MARKETS;
-        $this->info("$$$$$$$$$$ Stock source: `$source`");
+        $this->info("[Stock]  Stock source: `$source`");
 
         try {
             if (StockService::STOCK_ALPAC_MARKETS == $source) {
@@ -50,7 +50,7 @@ class StockController extends AbstractController
             ], 500);
         }
 
-        $this->info("$$$$$$$$$$ Stock json: " . json_encode($stockJson));
+        $this->info("[Stock]  Stock json: " . json_encode($stockJson));
 
         // Default: JSON response with structured data
         return new JsonResponse([

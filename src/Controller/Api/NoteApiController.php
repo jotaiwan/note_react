@@ -135,7 +135,9 @@ class NoteApiController extends AbstractController
     #[Route('/api/notes/statuses', methods: ['GET'], name: 'api_list_of_note_status')]
     public function statusList(): JsonResponse
     {
-        $this->info("Loading note statuses...");
+        $id = uniqid('req_', true);
+        $this->info("Loading note statuses {$id}");
+
         return $this->json(array(
             "All" => array("url" => "?statusOnly=", "icon" => "fa-list fa-fw", "color" => "blue", "text" => "All"),
             "Epic" => array("url" => "?statusOnly=epic", "icon" => "fa-bolt fa-fw", "color" => "purple", "text" => "Epic"),
