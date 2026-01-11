@@ -2,9 +2,9 @@
 
 
 
-namespace Note\Service;
+namespace  NoteReact\Service;
 
-use Note\Util\LoggerTrait;
+use NoteReact\Util\LoggerTrait;
 
 class HtmlHeadService
 {

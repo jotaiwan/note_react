@@ -1,0 +1,4 @@
+# config/routes/api.yaml
+note_api:
+    resource: ../../src/Controller/Api/NoteApiController.php
+    type: attribute

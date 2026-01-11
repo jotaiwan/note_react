@@ -1,13 +1,13 @@
 <?php
 
-namespace Note\Repository;
+namespace  NoteReact\Repository;
 
-use Note\Contract\ReadFileRepositoryInterface;
+use NoteReact\Contract\ReadFileRepositoryInterface;
 use Config\NoteConstants;
-use Note\Entity\Note;
+use NoteReact\Entity\Note;
 
 use Psr\Log\LoggerInterface;
-use Note\Util\LoggerTrait;
+use NoteReact\Util\LoggerTrait;
 
 class ReadFileRepository implements ReadFileRepositoryInterface
 {

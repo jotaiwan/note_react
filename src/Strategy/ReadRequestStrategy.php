@@ -1,9 +1,9 @@
 <?php
 // src/Strategy/ReadRequestStrategy.php
-namespace Note\Strategy;
+namespace  NoteReact\Strategy;
 
 use Config\NoteConstants;
-use Note\Contract\NoteRequestStrategyInterface;
+use NoteReact\Contract\NoteRequestStrategyInterface;
 
 class ReadRequestStrategy implements NoteRequestStrategyInterface
 {

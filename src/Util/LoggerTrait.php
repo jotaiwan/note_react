@@ -1,7 +1,7 @@
 <?php
 
 // src/Util/LoggerTrait.php
-namespace Note\Util;
+namespace  NoteReact\Util;
 
 use Psr\Log\LoggerInterface;
 

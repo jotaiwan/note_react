@@ -1,14 +1,14 @@
 <?php
 
-namespace Note\Repository;
+namespace  NoteReact\Repository;
 
-use Note\Contract\ReadFileRepositoryInterface;
-use Note\Contract\UpdateFileRepositoryInterface;
+use NoteReact\Contract\ReadFileRepositoryInterface;
+use NoteReact\Contract\UpdateFileRepositoryInterface;
 use Config\NoteConstants;
-use Note\DTO\NoteDTO;
+use NoteReact\DTO\NoteDTO;
 
 use Psr\Log\LoggerInterface;
-use Note\Util\LoggerTrait;
+use NoteReact\Util\LoggerTrait;
 
 class UpdateFileRepository implements UpdateFileRepositoryInterface
 {

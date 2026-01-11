@@ -1,8 +1,8 @@
 <?php
 
-namespace Note\Strategy;
+namespace  NoteReact\Strategy;
 
-use Note\Contract\NoteRequestStrategyInterface;
+use NoteReact\Contract\NoteRequestStrategyInterface;
 
 class UpdateRequestStrategy implements NoteRequestStrategyInterface
 {

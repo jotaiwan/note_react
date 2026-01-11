@@ -1,6 +1,6 @@
 <?php
 
-namespace Note\Contract;
+namespace  NoteReact\Contract;
 
 
 // SaveRepositoryInterface.php

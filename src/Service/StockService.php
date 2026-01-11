@@ -1,14 +1,14 @@
 <?php
 
-namespace Note\Service;
+namespace  NoteReact\Service;
 
 use Config\NoteConstants;
-use Note\CredentialReader\CredentialReader;
-use Note\Util\ProjectPaths;
+use NoteReact\CredentialReader\CredentialReader;
+use NoteReact\Util\ProjectPaths;
 use Symfony\Component\Validator\Constraints\Json;
 
-
-use Note\Util\LoggerTrait;
+use Psr\Log\LoggerInterface;
+use NoteReact\Util\LoggerTrait;
 
 
 class StockService
@@ -36,6 +36,11 @@ class StockService
 
     private const SOURCE = "source";
 
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->setLogger($logger);
+    }
+
 
     public function getFinnhubStockPrice($source, $symbol, $format)
     {
@@ -54,7 +59,6 @@ class StockService
             $quote['c'],
             $date->format('Y-m-d H:i:s')
         );
-
         return $this->returnApiResult($source, $symbol, $timeSeries, $format, $isLoadFromPastSaved);
     }
 

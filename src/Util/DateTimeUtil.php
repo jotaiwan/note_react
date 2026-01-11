@@ -1,6 +1,6 @@
 <?php
 
-namespace Note\Util;
+namespace  NoteReact\Util;
 
 /**
  * DateTimeUtil Class - A utility class for DateTime operations with timezone support

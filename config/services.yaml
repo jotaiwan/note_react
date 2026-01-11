@@ -13,7 +13,7 @@ services:
 
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
-  Note\:
+  NoteReact\:
     resource: "../src/"
     exclude:
       - "../src/DependencyInjection/"
@@ -26,20 +26,18 @@ services:
     alias: "monolog.logger" # Use the default logger service provided by Symfony Monolog
 
   # register NoteFactory
-  Note\Factory\NoteFactory:
+  NoteReact\Factory\NoteFactory:
     arguments:
       $logger: "@logger" # inject default LoggerInterface
+      $menuService: '@NoteReact\Service\MenuService'
 
-  Note\Service\:
+  NoteReact\Service\:
     resource: "../src/Service"
-    calls:
-      - method: "setLogger"
-        arguments:
-          - "@logger" 
     autowire: true
     autoconfigure: true
 
-  Note\Repository\:
+
+  NoteReact\Repository\:
     resource: "../src/Repository"
     calls:
       - method: "setLogger"

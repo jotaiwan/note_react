@@ -1,9 +1,9 @@
 <?php
 
-namespace Note\Service\Base;
+namespace  NoteReact\Service\Base;
 
 use Config\NoteConstants;
-use Note\DTO\NoteDTO;
+use NoteReact\DTO\NoteDTO;
 
 abstract class NoteBase
 {

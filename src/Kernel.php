@@ -1,9 +1,17 @@
 <?php
 
-namespace Note;
+namespace NoteReact;
 
-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\SecurityBundle\SecurityBundle;
+use Symfony\Bundle\MonologBundle\MonologBundle;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+use Nelmio\CorsBundle\NelmioCorsBundle;
+use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 
 class Kernel extends BaseKernel
 {
@@ -46,5 +54,33 @@ class Kernel extends BaseKernel
         }
 
         parent::__construct($environment, $debug);
+    }
+
+    public function registerBundles(): iterable
+    {
+        return [
+            new FrameworkBundle(),
+            new TwigBundle(),
+            new SecurityBundle(),
+            new MonologBundle(),
+            new NelmioCorsBundle(),
+        ];
+    }
+
+
+    protected function configureRoutes(RoutingConfigurator $routes): void
+    {
+        // Import routes from config and controllers using PHP 8 attributes
+        $routes->import('../config/{routes}/*.yaml');
+        $routes->import('../src/Controller/', 'attribute');
+    }
+
+    protected function configureContainer(ContainerConfigurator $container): void
+    {
+        $container->import('../config/{packages}/*.yaml');
+        $container->import('../config/{packages}/' . $this->environment . '/*.yaml');
+
+        $container->import('../config/{services}.yaml');
+        $container->import('../config/{services}_' . $this->environment . '.yaml', null);
     }
 }

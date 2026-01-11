@@ -1,6 +1,6 @@
 <?php
 
-namespace Note\DTO;
+namespace  NoteReact\DTO;
 
 class NoteDTO implements \JsonSerializable
 {

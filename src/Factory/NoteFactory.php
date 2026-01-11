@@ -1,26 +1,26 @@
 <?php
 
-namespace Note\Factory;
+namespace  NoteReact\Factory;
 
 use Psr\Log\LoggerInterface;
-use Note\Util\LoggerTrait;
+use NoteReact\Util\LoggerTrait;
 
-use Note\Contract\NoteServiceInterface;
-use Note\Service\ReadFileService;
-use Note\Service\SaveFileService;
-use Note\Service\UpdateFileService;
+use NoteReact\Contract\NoteServiceInterface;
+use NoteReact\Service\ReadFileService;
+use NoteReact\Service\SaveFileService;
+use NoteReact\Service\UpdateFileService;
 
-use Note\Repository\ReadFileRepository;
-use Note\Repository\SaveFileRepository;
-use Note\Repository\UpdateFileRepository;
+use NoteReact\Repository\ReadFileRepository;
+use NoteReact\Repository\SaveFileRepository;
+use NoteReact\Repository\UpdateFileRepository;
 
-use Note\Service\HtmlHeadService;
-use Note\Service\MenuService;
-use Note\Service\NoteBuilderService;
+use NoteReact\Service\HtmlHeadService;
+use NoteReact\Service\MenuService;
+use NoteReact\Service\NoteBuilderService;
 
-use Note\Strategy\ReadRequestStrategy;
-use Note\Strategy\SaveRequestStrategy;
-use Note\Strategy\UpdateRequestStrategy;
+use NoteReact\Strategy\ReadRequestStrategy;
+use NoteReact\Strategy\SaveRequestStrategy;
+use NoteReact\Strategy\UpdateRequestStrategy;
 use Symfony\Component\CssSelector\Parser\Reader;
 
 class NoteFactory
@@ -28,10 +28,12 @@ class NoteFactory
     use LoggerTrait;
 
     private $logger;
+    private MenuService $menuService;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, MenuService $menuService)
     {
         $this->logger = $logger;
+        $this->menuService = $menuService;
     }
 
     public function createNoteService(string $action): NoteServiceInterface
@@ -40,7 +42,7 @@ class NoteFactory
         $saveFileRepository = new SaveFileRepository($readFileRepository, $this->logger);
         $updateFileRepository = new UpdateFileRepository($readFileRepository, $this->logger);
         $htmlHeadService = new HtmlHeadService();
-        $menuService = new MenuService();
+        $menuService = $this->menuService;
         $noteBuilderService = new NoteBuilderService();
 
         switch ($action) {

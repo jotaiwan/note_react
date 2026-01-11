@@ -267,4 +267,9 @@ sudo systemctl restart apache2
 sudo setfacl -R -m u:"$USER":rwX data
 sudo setfacl -R -m d:u:"$USER":rwX data   # 默认 ACL
 
+#23. 安裝 Symfony CLI
+curl -sS https://get.symfony.com/cli/installer | bash
+export PATH="$HOME/.symfony/bin:$PATH"
+
+
 echo "Setup complete! Visit http://$HOST.local in your browser."

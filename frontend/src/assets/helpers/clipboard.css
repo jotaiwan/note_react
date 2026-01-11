@@ -1,0 +1,58 @@
+.hover-shortcut-tooltip {
+    display: block;
+    position: absolute;
+    top: 100%;
+    /* tooltip 出现在按钮下方 */
+    left: 0;
+    transform: translateX(-90%);
+    /* 右边缘对齐按钮左边 */
+    background-color: #ebdb9d;
+    /* 你指定的背景色 */
+    color: #000;
+    text-align: left;
+    border-radius: 5px;
+    padding: 8px;
+    z-index: 1000;
+    min-width: 300px;
+    /* 最小宽度，防止太窄 */
+    max-width: 300px;
+    /* 最大宽度，超长内容换行 */
+    max-height: 270px;
+    /* 最大高度，超高内容滚动 */
+    overflow-y: auto;
+    /* 超出高度滚动 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    white-space: normal;
+    /* 允许换行 */
+}
+
+/* li hover 背景全覆盖 */
+.hover-shortcut-tooltip ul li:hover {
+    background-color: #ffc400;
+    cursor: pointer;
+    display: block;
+    /* 占满整行 */
+    padding: 4px 6px;
+    /* 内边距让背景延伸 */
+    border-radius: 3px;
+    /* 圆角美观 */
+}
+
+/* 滚动条样式 */
+.hover-shortcut-tooltip ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.hover-shortcut-tooltip ul::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.hover-shortcut-tooltip ul::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.hover-shortcut-tooltip ul:hover::-webkit-scrollbar-thumb {
+    background: #888;
+}
