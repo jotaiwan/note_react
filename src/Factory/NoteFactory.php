@@ -73,7 +73,7 @@ class NoteFactory
     }
 
 
-    // 创建 RequestStrategy
+    // Create RequestStrategy
     /**
      * What is RequestStrategy?
      * RequestStrategy is an interface (or abstract class) whose main purpose is to provide a standardized way to handle data for different types of requests. 

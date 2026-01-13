@@ -145,11 +145,11 @@ class NoteBuilderService
     private function getNoteDates($noteDate)
     {
         // this should return AU + Etc/GMT+7
-        // 這是 Etc/GMT+7 的時間
+        // This is an Etc/GMT+7 time
         $gmt7DateTime = $noteDate;
         $dtGmt7 = new \DateTime($gmt7DateTime);
 
-        // 轉成 Sydney 時間
+        // Convert to Sydney time
         $dtSydney = clone $dtGmt7;
         $dtSydney->setTimezone(new \DateTimeZone('Australia/Sydney'));
         $sydeyDate = $dtSydney->format('Y-m-d H:i:s');

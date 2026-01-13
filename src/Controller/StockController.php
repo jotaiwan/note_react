@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Psr\Log\LoggerInterface;  // 需要导入这个接口
+use Psr\Log\LoggerInterface;
 use NoteReact\Util\LoggerTrait;
 
 use NoteReact\Service\StockService;

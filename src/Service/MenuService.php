@@ -21,7 +21,7 @@ class MenuService
 
     public function getAllEmojis()
     {
-        return self::getEmojis(); // 從工具類取得 emoji array
+        return self::getEmojis(); // Get emoji array from utility class
     }
 
     private static function getEmojis()

@@ -18,7 +18,7 @@ use Config\NoteConstants;
 
 use NoteReact\CredentialReader\CredentialReader;
 
-use Psr\Log\LoggerInterface;  // 需要导入这个接口
+use Psr\Log\LoggerInterface;
 use NoteReact\Util\LoggerTrait;
 
 class NoteController extends AbstractController
