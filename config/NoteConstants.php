@@ -6,30 +6,18 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class NoteConstants
 {
-    const HISTORY_DATE = "date";
-    const HISTORY_TICKET = "ticket";
-    const HISTORY_NOTE = "note";
-    const HISTORY_DAYS = "days";
-    const HISTORY_YEAR = "year";
-    const HISTORY_STATUS = "status"; // status of the ticket, eg: "done", "in progress", "waiting for response"
-
     const JIRA_STATUS_OPEN = "Open";
-
     const NOTE_ONLY = "NOTE_ONLY";
     const MEETING = "MEETING"; // special ticket for meeting notes
-
-    const READ_ACTION = "read";
-    const SAVE_ACTION = "save";
-    const BUILD_ACTION = "build";
-    const SEARCH_ACTION = "search";
-    const UPDATE_ACTION = "update"; // update existing ticket note
-
     const DEFAULT_DAYS = 90;
-
-    const LOAD_TICKET = "load_ticket"; // load ticket details, eg: ticket title, status, etc.N
+    const NOTE_SITE = "\$SITE";
 
     public static function getNoteFile()
     {
+        if (file_exists('/var/www/note_react/data/note.txt')) {
+            // use this default file in docker container
+            return '/var/www/note_react/data/note.txt';
+        }
         $config = getenv('NOTE_DATA_FILE');
         // exit(self::replaceSiteToken($config));
         return self::replaceSiteToken($config);
@@ -37,6 +25,10 @@ class NoteConstants
 
     public static function getCredentialJson()
     {
+        if (file_exists('/etc/secrets/credential.json')) {
+            // use this default file in docker container
+            return '/etc/secrets/credential.json';
+        }
         $config = getenv('NOTE_CREDENTIAL_JSON');
         return self::replaceSiteToken($config);
     }
@@ -44,14 +36,14 @@ class NoteConstants
     private static function replaceSiteToken($value)
     {
         $filePath = $value;
-        if (strpos($value, '{SITE}') !== false) {
-            $site = SITE;
-            $filePath = str_replace('{SITE}', $site, $value);
+        if (strpos($value, self::NOTE_SITE) !== false) {
+            $site = getenv('SITE') ?: 'note';
+            $filePath = str_replace(self::NOTE_SITE, $site, $value);
         }
 
-        if (!file_exists($filePath) && (strpos($value, '{SITE}') !== false)) {
+        if (!file_exists($filePath) && (strpos($value, self::NOTE_SITE) !== false)) {
             // to default note
-            $filePath = str_replace('{SITE}', "note", $value);
+            $filePath = str_replace(self::NOTE_SITE, "note", $value);
         }
         return $filePath;
     }

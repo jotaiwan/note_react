@@ -1,5 +1,15 @@
 <?php
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+$logDir = __DIR__ . '/../var/log';
+if (!is_dir($logDir)) {
+    mkdir($logDir, 0777, true);
+}
+ini_set('error_log', $logDir . '/dev.log');
+
 use NoteReact\Kernel;
 
 require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';

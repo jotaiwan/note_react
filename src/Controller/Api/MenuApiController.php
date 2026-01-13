@@ -58,7 +58,7 @@ class MenuApiController extends AbstractController
     #[Route('/api/credential/{resource}/{key}', name: 'get credential source key value', methods: ['GET'])]
     public function getResouceKeyValue(string $resource, string $key)
     {
-        \xdebug_break();
+        // \xdebug_break();
         return new JsonResponse(CredentialReader::getCredential($resource, $key));
     }
 

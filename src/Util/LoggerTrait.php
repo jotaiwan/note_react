@@ -7,25 +7,31 @@ use Psr\Log\LoggerInterface;
 
 trait LoggerTrait
 {
-    private $logger;
+    private ?LoggerInterface $logger = null;
 
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
     }
 
-    protected function info(string $message)
+    protected function info(string $message): void
     {
-        $this->logger->info($message);
+        if ($this->logger instanceof LoggerInterface) {
+            $this->logger->info($message);
+        }
     }
 
-    protected function warn(string $message)
+    protected function warn(string $message): void
     {
-        $this->logger->warning($message);
+        if ($this->logger instanceof LoggerInterface) {
+            $this->logger->warning($message);
+        }
     }
 
-    protected function error(string $message)
+    protected function error(string $message): void
     {
-        $this->logger->error($message);
+        if ($this->logger instanceof LoggerInterface) {
+            $this->logger->error($message);
+        }
     }
 }

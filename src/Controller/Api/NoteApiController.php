@@ -30,8 +30,8 @@ class NoteApiController extends AbstractController
     #[Route('/api/notes', methods: ['GET'], name: 'api_note_list')]
     public function listNotes(): JsonResponse
     {
-        // ✅ 手动触发 Xdebug 断点
         // \xdebug_break();
+        
         $data = [];
         $noteService = $this->noteFactory->createNoteService('read');
         $noteRequest = $this->noteFactory->createRequestStrategy('read', $data);
@@ -72,9 +72,9 @@ class NoteApiController extends AbstractController
     #[Route('/api/notes', methods: ['POST'], name: 'api_note_create')]
     public function createNote(Request $request): JsonResponse
     {
-        \xdebug_break();
+        // \xdebug_break();
         $data = json_decode($request->getContent(), true) ?? [];
-        $this->info("******************** Try to save new note: " . json_encode($data));
+        $this->info("Save new note request: " . json_encode($data));
 
         $noteService = $this->noteFactory->createNoteService('save');
         $noteRequest = $this->noteFactory->createRequestStrategy('save', $data);
@@ -83,11 +83,9 @@ class NoteApiController extends AbstractController
             return $this->json(['error' => 'Invalid request'], 400);
         }
 
-
         try {
-            // 原来的保存逻辑
             $result = $noteService->execute($noteRequest);
-            $this->info(".................................. " . json_encode($result));
+            $this->info("Save result output? " . json_encode($result));
             if ($result["success"]) {
                 return $this->json([
                     "success" => true,

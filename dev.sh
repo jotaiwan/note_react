@@ -4,6 +4,15 @@
 
 set -e  # 遇到错误立即停止
 
+# check which directory the script is running from
+# 1. Get current folder name
+dir_folder=$(basename "$(pwd)")
+# 2. Export to SITE variable
+export SITE="${dir_folder}"
+# 3. Print
+echo "🤔 Site name: $SITE"
+
+
 BACKEND_PORT=8000
 FRONTEND_PORT=5173
 

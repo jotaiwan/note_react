@@ -15,7 +15,6 @@ use NoteReact\Strategy\ReadRequestStrategy;
 
 use NoteReact\DTO\NoteDTO;
 
-use NoteReact\Util\EmojiUtil;
 use NoteReact\CredentialReader\CredentialReader;
 
 use NoteReact\Util\LoggerTrait;
@@ -73,17 +72,6 @@ class ReadFileService extends NoteBase implements NoteServiceInterface
 
         $tableRows = $this->noteBuilderService->buildTableRows($notes);
         return $tableRows;
-
-        // return [
-        //     'head_data' => $this->htmlHeadService->getHeadData(),
-        //     'menu_data' => $this->menuService->getMenu(),
-        //     'emojis_data' => EmojiUtil::getEmojis(),
-        //     'status_data' => MenuService::getNoteStatuses(),
-        //     'ta_sso_pwd' => CredentialReader::getTaSso(),
-        //     'copy_command_data' => MenuService::getCopyCommandList(),
-        //     'stock_data' => ['stockInfo' => $this->menuService->stockInfo("TRIP")],
-        //     'note_data' => $tableRows,
-        // ];
     }
 
     public function getRowId(?NoteRequestStrategyInterface $data = null)
