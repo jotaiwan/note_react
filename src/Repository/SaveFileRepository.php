@@ -51,6 +51,7 @@ class SaveFileRepository implements SaveFileRepositoryInterface
         $this->info("Ticket note saved: " . json_encode($inserted));
 
         if ($inserted) {
+            $this->info("The inserted flag appears to be true, validating file size...");
             $fileSize = filesize($this->filePath);
             $backupFileSize = filesize($backupFile);
             if ($fileSize < $backupFileSize) {
@@ -74,58 +75,41 @@ class SaveFileRepository implements SaveFileRepositoryInterface
         $this->info("Saving the new note request: `$ticket`");
 
         if (strtoupper($ticket) == NoteConstants::NOTE_ONLY) {
-            $status = "NoteOnly";          // no matter what, it will be note_only
+            $status = "NoteOnly";
         } elseif (strtoupper($ticket) == NoteConstants::MEETING) {
             $status = "Meeting";
         } elseif (empty($status)) {
-            $allNotes = $this->readFileRepository->getAllNotes($ticket);
-            if (in_array($ticket, array_keys($allNotes))) {
-                $notes = $allNotes[$ticket];
-                usort($notes, function ($a, $b) {
-                    return strtotime($b->getDate()) - strtotime($a->getDate());
-                });
-
-                $statuses = array_map(function ($note) {
-                    return $note->getStatus();
-                }, $notes);
-
-                $status = !empty($statuses) ? $statuses[0] : "Open";
-            } else {
-                $status = "Open";
-            }
-
-            $this->info("The request to save the note with ticket '$ticket' is in status: '$status'.");
+            $status = "Open";
         }
 
-        $this->info("Preparing to write ticket: `$ticket`...");
+        $newRow = [
+            strtoupper($ticket),
+            DateTimeUtil::getCurrentDateTimeInTimezone(),
+            $status,
+            $note
+        ];
 
-        // Wrap note in quotes
-        $newLine = strtoupper($ticket) . "," . DateTimeUtil::getCurrentDateTimeInTimezone() . "," . '"' . $status . '"' . "," .
-            '"' . $note . '"';
-
-        // Step 1: Read file lines into an array
         $lines = file($this->filePath, FILE_IGNORE_NEW_LINES);
 
-        // Step 2: Insert new line after first line (index 0)
-        array_splice($lines, 1, 0, $newLine);
+        $fp = fopen($this->filePath, 'w');
+        if ($fp === false) {
+            $this->error("Failed to open file for writing");
+            return false;
+        }
 
-        $this->info("Saving the line to file `" . $this->filePath . "`: " . json_encode($newLine));
-        $this->info('file_exists=' . (file_exists($this->filePath) ? 'yes' : 'no'));
-        $this->info('is_writable=' . (is_writable(dirname($this->filePath)) ? 'yes' : 'no'));
+        if (isset($lines[0])) {
+            fwrite($fp, $lines[0] . "\n");
+        }
+        fputcsv($fp, $newRow);
 
-        // Step 3: Write updated lines back to the file
-        $result = file_put_contents($this->filePath, implode("\n", $lines));
+        $remaining = array_slice($lines, 1);
+        foreach ($remaining as $line) {
+            fwrite($fp, $line . "\n");
+        }
 
-        // Step 4: validate the insert
-        return $this->validateInsert($newLine);
-    }
+        fclose($fp);
 
-    public function validateInsert($new)
-    {
-        $content = file($this->filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $found = (strpos($content[1], $new) !== false);
-        $this->info("Does insert success: " . $found ? "saved." : "not saved.");
-        return $found;
+        return true;
     }
 
     private function copyWorkListToFolder()

@@ -83,4 +83,20 @@ class Kernel extends BaseKernel
         $container->import('../config/{services}.yaml');
         $container->import('../config/{services}_' . $this->environment . '.yaml', null);
     }
+
+    // Ensure Symfony uses project root var/ directory for cache and logs.
+    public function getProjectDir(): string
+    {
+        return \dirname(__DIR__);
+    }
+
+    public function getCacheDir(): string
+    {
+        return $this->getProjectDir() . '/var/cache/' . $this->environment;
+    }
+
+    public function getLogDir(): string
+    {
+        return $this->getProjectDir() . '/var/log';
+    }
 }

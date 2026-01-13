@@ -204,6 +204,109 @@ cd note_react
 
 ---
 
+## ⚙️ Run with Apache (local host) ✅
+If you prefer to use your system Apache (useful for production-like testing), follow these steps:
+
+1. Install PHP and required extensions (PHP 8.2+), Composer and Node.js.
+2. Install PHP dependencies:
+
+```bash
+composer install --no-interaction --optimize-autoloader
+```
+
+3. Install frontend dependencies and build (or run dev):
+
+```bash
+cd frontend
+npm install
+# for dev
+npm run dev
+# for production
+npm run build
+cd ..
+```
+
+4. Configure Apache VirtualHost (example):
+
+```apacheconf
+<VirtualHost *:80>
+    ServerName note.local
+    DocumentRoot /absolute/path/to/note_react/public
+
+    <Directory /absolute/path/to/note_react/public>
+        Require all granted
+        AllowOverride All
+        Options Indexes FollowSymLinks
+    </Directory>
+
+    # Pass environment variables (alternatively set in your shell)
+    SetEnv NOTE_DOCKER_PORT 8078
+    SetEnv NOTE_HOST http://note.local
+
+    ErrorLog ${APACHE_LOG_DIR}/note_error.log
+    CustomLog ${APACHE_LOG_DIR}/note_access.log combined
+</VirtualHost>
+```
+
+- Enable mod_rewrite and restart Apache:
+
+```bash
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+```
+
+- Ensure writable directories and data file permissions (example):
+
+```bash
+mkdir -p "$HOME_NOTES" # if using env variables like README describes
+chown -R www-data:www-data var/ data/ # or your apache user
+chmod -R 775 var/ data/
+```
+
+> Note: Symfony entry point is `public/index.php` so the Apache DocumentRoot must point to `public`.
+
+---
+
+## 🐳 Run with Docker (Apache) ✅
+There is Docker support for development in `docker/`. The default `docker/docker-compose.yml` runs a PHP built-in backend and a Vite frontend for development:
+
+```bash
+# development (backend uses PHP built-in server + frontend Vite)
+docker-compose -f docker/docker-compose.yml up --build
+```
+
+If you prefer an Apache container instead, create a small `docker-compose.apache.yml` (example):
+
+```yaml
+version: '3.8'
+services:
+  apache:
+    image: php:8.2-apache
+    volumes:
+      - ./:/var/www/note_react:cached
+    working_dir: /var/www/note_react
+    ports:
+      - "8080:80"
+    environment:
+      NOTE_HOST: http://localhost:8080
+    command: bash -lc "docker-php-ext-install pdo pdo_mysql && apache2-foreground"
+```
+
+Then run:
+
+```bash
+docker-compose -f docker-compose.apache.yml up --build
+```
+
+- The container serves the app at `http://localhost:8080` (DocumentRoot is `/var/www/note_react/public`).
+- Make sure environment variables expected by the app (credentials, NOTE_DATA_FILE, etc.) are provided as `environment:` or mounted files.
+
+---
+
+
+
+---
+
 # 🗒 Extra Notes – Folder Description（補充資料夾說明）
 
 - **`config/`**：包含配置文件，包括包、路由和服務的設置 / Contains configuration files, including settings for packages, routes, and services

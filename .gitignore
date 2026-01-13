@@ -32,6 +32,7 @@
 package-lock.json
 
 /data/logs
+/data/*.txt
 composer.lock
 ###> symfony/webpack-encore-bundle ###
 /node_modules/

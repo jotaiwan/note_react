@@ -16,7 +16,6 @@ use NoteReact\Api\NoteApi;
 use NoteReact\Factory\NoteFactory;
 use Config\NoteConstants;
 
-use NoteReact\Util\EmojiUtil;
 use NoteReact\CredentialReader\CredentialReader;
 
 use Psr\Log\LoggerInterface;  // 需要导入这个接口

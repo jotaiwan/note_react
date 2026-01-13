@@ -145,9 +145,9 @@ th {
   padding: 5px;
   font-family: monospace;
   display: block;
-  white-space: pre;
+  /* white-space: pre; */
   margin-bottom: 0.5em;
-  font-size: 0.9em;
+  font-size: 12px;
   border-radius: 5px;
   /* 👈 makes text 90% of normal size */
 }

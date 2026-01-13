@@ -52,34 +52,4 @@ class ProjectPaths
 
         return $path;
     }
-
-    /**
-     * TODO: not in used so far
-     * Get the 'logs' folder path, creating it if missing
-     */
-    public static function logsDir(): string
-    {
-        $path = self::projectDir() . '/logs';
-
-        if (!is_dir($path)) {
-            mkdir($path, 0777, true);
-        }
-
-        return $path;
-    }
-
-    /**
-     * TODO: not in used so far
-     * Get the 'cache' folder path, creating it if missing
-     */
-    public static function cacheDir(): string
-    {
-        $path = self::projectDir() . '/cache';
-
-        if (!is_dir($path)) {
-            mkdir($path, 0777, true);
-        }
-
-        return $path;
-    }
 }

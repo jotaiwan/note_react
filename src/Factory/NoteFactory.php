@@ -27,23 +27,27 @@ class NoteFactory
 {
     use LoggerTrait;
 
-    private $logger;
     private MenuService $menuService;
 
     public function __construct(LoggerInterface $logger, MenuService $menuService)
     {
-        $this->logger = $logger;
+        $this->setLogger($logger);
         $this->menuService = $menuService;
     }
 
     public function createNoteService(string $action): NoteServiceInterface
     {
+        // pass logger to repositories
         $readFileRepository = new ReadFileRepository($this->logger);
         $saveFileRepository = new SaveFileRepository($readFileRepository, $this->logger);
         $updateFileRepository = new UpdateFileRepository($readFileRepository, $this->logger);
+
+        // create helper services and inject logger so they can safely use LoggerTrait
         $htmlHeadService = new HtmlHeadService();
+        $htmlHeadService->setLogger($this->logger);
         $menuService = $this->menuService;
         $noteBuilderService = new NoteBuilderService();
+        $noteBuilderService->setLogger($this->logger);
 
         switch ($action) {
             case 'read':

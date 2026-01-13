@@ -5,6 +5,12 @@ echo "This script will require root privileges (sudo) to install packages and mo
 echo "Do you want to continue? (y/n)"
 read -r CONTINUE
 
+# check and create docker group
+getent group docker || sudo groupadd docker
+
+# add user to docker group
+sudo usermod -aG docker $USER
+
 # remove composer.lock if exists
 if [ -f "composer.lock" ]; then
     echo "Removing existing composer.lock file..."

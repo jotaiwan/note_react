@@ -8,7 +8,6 @@ namespace  NoteReact\Util;
 class DateTimeUtil
 {
     const ETC_GMT_PLUS_7 = 'Etc/GMT+7'; // UTC-7
-    const AUS_SYDNEY = 'Australia/Sydney';
 
     /**
      * Get current date and time in a specified timezone
