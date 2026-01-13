@@ -48,8 +48,10 @@ File system / External APIs
 ---
 
 # 📁 Project Structure
+```text
 note_react/
 ├── config/                 # Symfony configuration
+├── docker/                 # Docker container setting
 ├── public/                 # Symfony public entry (index.php)
 ├── src/                    # Symfony application source code
 ├── frontend/               # React SPA (Vite)
@@ -57,8 +59,10 @@ note_react/
 ├── .env / .env.dev         # Environment variables
 ├── compose.yaml            # Docker (optional)
 ├── dev.sh                  # Start dev environment
+├── dev_docker.sh           # Start dev docker container environment
 ├── setup.sh                # Initial setup script
 └── README.md
+```
 
 # 🔍 Backend (Symfony)
 Key Directories
